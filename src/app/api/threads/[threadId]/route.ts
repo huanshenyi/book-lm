@@ -6,7 +6,7 @@ export async function GET(
     { params }: { params: Promise<{ threadId: string }> }
 ) {
     const { threadId } = await params;
-    const memory = await mastra.getAgentById('weather-agent').getMemory();
+    const memory = await mastra.getAgentById('support-agent').getMemory();
     if (!memory) {
         return NextResponse.json({ error: 'Memory not configured' }, { status: 500 });
     }
@@ -24,7 +24,7 @@ export async function DELETE(
     { params }: { params: Promise<{ threadId: string }> }
 ) {
     const { threadId } = await params;
-    const memory = await mastra.getAgentById('weather-agent').getMemory();
+    const memory = await mastra.getAgentById('support-agent').getMemory();
     if (!memory) {
         return NextResponse.json({ error: 'Memory not configured' }, { status: 500 });
     }

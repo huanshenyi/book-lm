@@ -11,7 +11,7 @@ export async function POST(req: Request) {
     let threadId = params.threadId;
 
     if (!threadId) {
-        const memory = await mastra.getAgentById('weather-agent').getMemory();
+        const memory = await mastra.getAgentById('support-agent').getMemory();
         if (memory) {
             const thread = await memory.createThread({ resourceId: RESOURCE_ID });
             threadId = thread.id;
@@ -20,7 +20,7 @@ export async function POST(req: Request) {
 
     const stream = await handleChatStream({
         mastra,
-        agentId: 'weather-agent',
+        agentId: 'support-agent',
         params: {
             ...params,
             memory: {
@@ -43,7 +43,7 @@ export async function GET(req: Request) {
         return NextResponse.json([]);
     }
 
-    const memory = await mastra.getAgentById('weather-agent').getMemory();
+    const memory = await mastra.getAgentById('support-agent').getMemory();
     if (!memory) {
         return NextResponse.json([]);
     }

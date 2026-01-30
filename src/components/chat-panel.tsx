@@ -26,6 +26,8 @@ import {
     ToolOutput,
 } from '@/components/ai-elements/tool';
 
+import { WorkingMemoryViewer } from '@/components/working-memory-viewer';
+
 interface ChatPanelProps {
     threadId?: string;
     onThreadCreated?: (threadId: string) => void;
@@ -121,6 +123,7 @@ export function ChatPanel({ threadId, onThreadCreated, onTitleUpdate, initialMes
     return (
         <div className="w-full p-6 relative size-full h-screen">
             <div className="flex flex-col h-full">
+                {threadId && <WorkingMemoryViewer threadId={threadId} />}
                 <Conversation>
                     <ConversationContent>
                         {messages.map((message) => (

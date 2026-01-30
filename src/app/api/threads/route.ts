@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 const RESOURCE_ID = 'default-user';
 
 export async function GET() {
-    const memory = await mastra.getAgentById('weather-agent').getMemory();
+    const memory = await mastra.getAgentById('support-agent').getMemory();
     if (!memory) {
         return NextResponse.json([]);
     }
@@ -21,7 +21,7 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
-    const memory = await mastra.getAgentById('weather-agent').getMemory();
+    const memory = await mastra.getAgentById('support-agent').getMemory();
     if (!memory) {
         return NextResponse.json({ error: 'Memory not configured' }, { status: 500 });
     }
