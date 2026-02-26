@@ -1,8 +1,23 @@
 import { Agent } from '@mastra/core/agent';
+import { Workspace, LocalFilesystem, LocalSandbox } from '@mastra/core/workspace';
 import { weatherTool } from '../tools/weather-tool';
 import { bedrock } from "../../lib/bedrock-providers";
 import { tavilyMcpClient } from "../mcp/tavily-mcp-client"
 import { memory } from '../create-memory';
+
+const workspace = new Workspace({
+  id: 'support-agent-workspace',
+  name: 'support agent workspace',
+  filesystem: new LocalFilesystem({ basePath: './workspace' }),
+  sandbox: new LocalSandbox({
+    workingDirectory: './workspace',
+    env: {
+      NODE_ENV: 'development',
+    },
+  }),
+  skills: ['/skills'],
+  bm25: true,
+});
 
 const tavilyTools = await tavilyMcpClient.listTools()
 
@@ -17,6 +32,7 @@ export const supportAgent = new Agent({
 - weatherTool を使用して任意の場所の現在の天気を調べる
 - Tavily 検索ツールを使用して最新の情報をウェブ検索する
 - 計画立案、分析、文章作成、問題解決の支援
+- スキルを積極的に使いましょう
 
 ## ガイドライン
 - 回答は簡潔かつ丁寧に行うこと
@@ -33,4 +49,5 @@ export const supportAgent = new Agent({
   model: bedrock("us.anthropic.claude-sonnet-4-5-20250929-v1:0"),
   tools: { weatherTool: weatherTool, ...tavilyTools },
   memory,
+  workspace,
 });
